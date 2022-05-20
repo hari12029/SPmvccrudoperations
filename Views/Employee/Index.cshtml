@@ -1,0 +1,43 @@
+﻿@model IEnumerable<SPmvccrudoperations.Employee>
+@{
+    ViewBag.Title = "EmployeeList";
+}
+
+    <p>
+        <a href="/Employee/Create">Create New</a>
+    </p>
+
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>EmployeeName</th>
+                <th>EmployeeSalary</th>
+                <th>EmployeeCity</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var obj in Model)
+            {
+                <tr>
+                    <td>@obj.EmployeeName</td>
+                    <td>@obj.EmployeeSalary</td>
+                    <td>@obj.EmployeeCity</td>
+                    <td>
+                        <a href="/Employee/Edit/@obj.Employeeid">Edit</a> |
+                        <a href="/Employee/Details/@obj.Employeeid">Details</a> |
+                        <a href="/Employee/Delete/@obj.Employeeid">Delete</a>
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+
+
+
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>

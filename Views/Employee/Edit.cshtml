@@ -1,0 +1,90 @@
+﻿@model SPmvccrudoperations.Employee
+
+@{
+    ViewBag.Title = "Employee Edit";
+}
+
+<form action="" id="form-employee" method="post" novalidate="novalidate">
+    <input name="__RequestVerificationToken" type="hidden" value="wK-uJwnjWnG-hJLOvLM8IWJbMY8O_ss3fgrxK1bmwnBKf5YJdHKBcv4krjMndeihKqatCX_iUA24loAkFmNNufS7ABMMuVwmRadKFgBcovU1">    <div class="form-horizontal">
+    <h4>Employee</h4>
+    <hr>
+
+    @*<input data-val="true" data-val-number="The field Employeeid must be a number." data-val-required="The Employeeid field is required." id="Employeeid" name="Employeeid" type="hidden" value="10">*@
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="EmployeeName">EmployeeName</label>
+        <div class="col-md-10">
+            <input class="form-control text-box single-line" data-val="true" data-val-required="EmployeeName is required" id="txt-employee-name" name="EmployeeName" type="text" value=@Model.EmployeeName
+            <span class="field-validation-valid text-danger" data-valmsg-for="EmployeeName" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="EmployeeSalary">EmployeeSalary</label>
+        <div class="col-md-10">
+            <input class="form-control text-box single-line" data-val="true" data-val-number="The field EmployeeSalary must be a number." data-val-required="EmployeeSalary is required" id="txt-employee-salary" name="EmployeeSalary" type="text" value=@Model.EmployeeSalary
+            <span class="field-validation-valid text-danger" data-valmsg-for="EmployeeSalary" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label class="control-label col-md-2" for="EmployeeCity">EmployeeCity</label>
+        <div class="col-md-10">
+            <input class="form-control text-box single-line" data-val="true" data-val-required="EmployeeCity is required" id="txt-employee-city" name="EmployeeCity" type="text" value=@Model.EmployeeCity
+            <span class="field-validation-valid text-danger" data-valmsg-for="EmployeeCity" data-valmsg-replace="true"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <input type="hidden" id="Employeeid" name="Employeeid" value=@Model.Employeeid>
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Save" class="btn btn-default">
+        </div>
+    </div>
+</div>
+</form>
+
+
+<div>
+    <a href="/Employee/Index">Back to List</a>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        $(document).ready(function () {
+            $('#form-employee').on('submit', function (e) {
+                e.preventDefault();
+
+
+                if (!$('#txt-employee-name').val()) {
+                    alert('Employee name is not defined!')
+                }
+                else if (!$('#txt-employee-salary').val()) {
+                    alert('Employee salary is not defined!')
+                }
+                else if (!$('#txt-employee-city').val()) {
+                    alert('Employee city is not defined!')
+                }
+                else {
+                    $.ajax({
+                        url: "/Employee/Edit",
+                        method: "POST",
+                        data: { Employeeid: $('#Employeeid').val(), EmployeeName: $('#txt-employee-name').val(), EmployeeSalary: $('#txt-employee-salary').val(), EmployeeCity: $('#txt-employee-city').val() },
+                        success: function (result) {
+                            alert("this is coming from ajax success");
+
+                            $('#Employeeid').val('');
+                        }
+                    });
+                }
+
+            })
+        })
+    </script>
+}
