@@ -7,52 +7,56 @@ namespace SPmvccrudoperations.Repository
 {
     public class EmployeeRepository : IEmployeeRepository
     {
-        private EmployeemasterEntities eme;
+        private readonly EmployeemasterEntities _employeemasterEntities;
 
         public EmployeeRepository()
         {
-            eme = new EmployeemasterEntities();
+            _employeemasterEntities = new EmployeemasterEntities();
         }
     
-        public void Add(Employee obj)
+        public void Add(Employee emp)
         {
-            eme.Employees.Add(obj);
+            _employeemasterEntities.Employees.Add(emp);
+            save();
         }
 
         public void Delete(int employeeid)
         {
-            Employee emp = eme.Employees.Single(model => model.Employeeid == employeeid);
+            Employee emp = _employeemasterEntities.Employees.Single(employee => employee.Employeeid == employeeid);
 
-            eme.Employees.Remove(emp);
+            _employeemasterEntities.Employees.Remove(emp);
+            save();
         }
 
         public IEnumerable<Employee> GetAll()
         {
-             return eme.Employees.ToList();
+             return _employeemasterEntities.Employees.ToList();
         }
 
         public Employee GetById(int employeeid)
         {
-            return eme.Employees.FirstOrDefault(model=> model.Employeeid == employeeid);
+            return _employeemasterEntities.Employees.FirstOrDefault(emp=> emp.Employeeid == employeeid);
         }
 
 
 
         public void save()
         {
-            eme.SaveChanges();
+            _employeemasterEntities.SaveChanges();
         }
 
-        public void Update(Employee obj)
+        public void Update(Employee emp)
         {
-            Employee emp = eme.Employees.Single(model => model.Employeeid == obj.Employeeid);
-            if(emp != null)
+
+
+            Employee employee = _employeemasterEntities.Employees.FirstOrDefault(empmodel => empmodel.Employeeid == emp.Employeeid);
+            if (employee != null)
             {
-                emp.EmployeeName = obj.EmployeeName;
-                emp.EmployeeSalary = obj.EmployeeSalary;
-                emp.EmployeeCity = obj.EmployeeCity;
+                employee.EmployeeName = emp.EmployeeName;
+                employee.EmployeeSalary = emp.EmployeeSalary;
+                employee.EmployeeCity = emp.EmployeeCity;
             }
-            Add(emp);
+            save();
         }
 
         //public static IEnumerable<Predicate<Employee>> GetValidPredicates(this ArticleFiltersModel filter)

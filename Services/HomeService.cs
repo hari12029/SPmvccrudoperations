@@ -1,60 +1,82 @@
-﻿using SPmvccrudoperations.Repository;
+﻿using SPmvccrudoperations.Models;
+using SPmvccrudoperations.Repository;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-//using SPmvccrudoperations.Repository;
 namespace SPmvccrudoperations.Services
 {
     public class HomeService
     {
 
-        private readonly EmployeemasterEntities _context;
-        private readonly IEmployeeRepository ier;
+        private readonly EmployeemasterEntities _employeemasterEntities;
+        private readonly IEmployeeRepository _iemployeeRepository;
 
         public HomeService()
         {
-            _context = new EmployeemasterEntities();
-            ier = new EmployeeRepository();
+            _employeemasterEntities = new EmployeemasterEntities();
+            _iemployeeRepository = new EmployeeRepository();
         }
 
-        public List<Employee> GetEmployeeList()
+        public List<EmployeeViewModel> GetEmployeeList()
         {
-            List<Employee> empList = (List<Employee>)ier.GetAll();
+            List<Employee> empList = _iemployeeRepository.GetAll().ToList();
 
-            //List<Employee> empList = _context.Employees.ToList();
-            return empList;
-        }
+            List<EmployeeViewModel> empViewModelList = new List<EmployeeViewModel>();
 
-        public void CreateEmployee(Employee emp)
-        {
-            _context.Employees.Add(emp);
-            _context.SaveChanges();
-        }
-
-        public Employee GetEmployee(int id)
-        {
-            Employee emp = _context.Employees.Where(x => x.Employeeid == id).FirstOrDefault();
-            return emp;
-        }
-
-        public void UpdateEmployee(Employee Model)
-        {
-            Employee data = GetEmployee(Model.Employeeid);
-            if (data != null)
+            foreach (var emp in empList)
             {
-                data.EmployeeCity = Model.EmployeeCity;
-                data.EmployeeName = Model.EmployeeName;
-                data.EmployeeSalary = Model.EmployeeSalary;
-                _context.SaveChanges();
+                EmployeeViewModel empViewModel = new EmployeeViewModel();
+                empViewModel.Employeeid = emp.Employeeid;
+                empViewModel.EmployeeName = emp.EmployeeName;
+                empViewModel.EmployeeSalary = emp.EmployeeSalary;
+                empViewModel.EmployeeCity = emp.EmployeeCity;
+
+
+                empViewModelList.Add(empViewModel);
             }
+            return empViewModelList;
+        }
+
+        public void CreateEmployee(EmployeeViewModel employeeViewModel)
+        {
+            Employee employee = new Employee();
+            employee.Employeeid = employeeViewModel.Employeeid;
+            employee.EmployeeName = employeeViewModel.EmployeeName;
+            employee.EmployeeSalary = employeeViewModel.EmployeeSalary;
+            employee.EmployeeCity = employeeViewModel.EmployeeCity;
+
+            _iemployeeRepository.Add(employee);
+        }
+
+        public EmployeeViewModel GetEmployee(int id)
+        {
+            Employee emp = _iemployeeRepository.GetById(id);
+
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel();
+            employeeViewModel.Employeeid = emp.Employeeid;
+            employeeViewModel.EmployeeName = emp.EmployeeName;
+            employeeViewModel.EmployeeSalary = emp.EmployeeSalary;
+            employeeViewModel.EmployeeCity = emp.EmployeeCity;
+
+            return employeeViewModel;
+        }
+
+        public void UpdateEmployee(EmployeeViewModel employeeViewModel)
+        {
+            Employee employee = new Employee();
+            employee.Employeeid = employeeViewModel.Employeeid;
+            employee.EmployeeName = employeeViewModel.EmployeeName;
+            employee.EmployeeSalary = employeeViewModel.EmployeeSalary;
+            employee.EmployeeCity = employeeViewModel.EmployeeCity;
+
+            _iemployeeRepository.Update(employee);
         }
 
         public void DeleteEmployee(int id)
         {
-            var data = _context.Employees.Where(x => x.Employeeid == id).FirstOrDefault();
-            _context.Employees.Remove(data);
-            _context.SaveChanges();
+            _iemployeeRepository.Delete(id);
+
         }
     }
 }

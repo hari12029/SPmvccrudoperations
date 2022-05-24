@@ -1,4 +1,4 @@
-﻿@model SPmvccrudoperations.Employee
+﻿@model SPmvccrudoperations.Models.EmployeeViewModel
 
 @{
     ViewBag.Title = "Employee Details";
@@ -24,7 +24,7 @@
 </head>
 <body>
     <body data-new-gr-c-s-check-loaded="14.1062.0" data-gr-ext-installed>
-        <div class="container body-content"
+        <div class="container body-content">
             
             <div>
                 <h4>Employee</h4>
@@ -42,15 +42,11 @@
                         <dd>@Model.EmployeeCity</dd>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody> 
                     <p>
                         <a href="/Employee/Edit/@Model.Employeeid">Edit</a>
                         |
                         <a href="/Employee/Index">Back to List</a>
                     </p>
-                    <!-- jQuery -->
-                    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-                    <!-- Bootstrap JavaScript -->
-                    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 </html>

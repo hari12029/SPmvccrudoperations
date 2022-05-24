@@ -10,8 +10,8 @@ namespace SPmvccrudoperations.Repository
     {
         IEnumerable<Employee> GetAll();
         Employee GetById(int Employeeid);
-        void Add(Employee obj);
-        void Update(Employee obj);
+        void Add(Employee emp);
+        void Update(Employee emp);
         void Delete(int EmployeeId);
         void save();
 

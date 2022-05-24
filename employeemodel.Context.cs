@@ -13,7 +13,7 @@ namespace SPmvccrudoperations
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class EmployeemasterEntities : DbContext
+    public partial class EmployeemasterEntities : DbContext 
     {
         public EmployeemasterEntities()
             : base("name=EmployeemasterEntities")

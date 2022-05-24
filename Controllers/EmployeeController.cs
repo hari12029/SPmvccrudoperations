@@ -1,4 +1,5 @@
-﻿using SPmvccrudoperations.Services;
+﻿using SPmvccrudoperations.Models;
+using SPmvccrudoperations.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,27 +11,31 @@ namespace SPmvccrudoperations.Controllers
     public class EmployeeController : Controller
 
         {
-            private readonly HomeService hs;
-            public EmployeeController()
+            private readonly HomeService _homeService;
+       
+
+        public EmployeeController()
             {
-                hs = new HomeService();
+                _homeService = new HomeService();
             }
 
         // GET: Employee
 
         public ActionResult Index()
         {
-            List<Employee> empList = new List<Employee>();
+            List<EmployeeViewModel> empViewModelList = new List<EmployeeViewModel>();
             try
             {
-                empList = hs.GetEmployeeList();
+                empViewModelList = _homeService.GetEmployeeList();
+
+                
             }
             catch (Exception ex)
             {
-
+                return View();
             }
 
-            return View(empList);
+            return View(empViewModelList);
         }
         [HttpGet]
         public ActionResult Create()
@@ -38,44 +43,42 @@ namespace SPmvccrudoperations.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Employee model)
+        public ActionResult Create(EmployeeViewModel employeeViewModel)
         {
 
             try
             {
-                if (ModelState.IsValid)
-                {
-                    hs.CreateEmployee(model);
-                }
+                
+                    _homeService.CreateEmployee(employeeViewModel);
+                
             }
             catch (Exception ex)
             {
 
             }
-            // ViewBag.Message = "Data Insert Successfully";
-            return Json(new { Message = "Data Insert Successfully" }, JsonRequestBehavior.AllowGet);
+            return Json(new { Message = "employee Inserted Successfully" }, JsonRequestBehavior.AllowGet);
 
         }
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            Employee data = new Employee();
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel();
             try
             {
-                data = hs.GetEmployee(id);
+                employeeViewModel = _homeService.GetEmployee(id);
             }
             catch (Exception ex)
             {
 
             }
-            return View(data);
+            return View(employeeViewModel);
         }
         [HttpPost]
-        public ActionResult Edit(Employee Model)
+        public ActionResult Edit(EmployeeViewModel employeeViewModel)
         {
             try
             {
-                hs.UpdateEmployee(Model);
+                _homeService.UpdateEmployee(employeeViewModel);
             }
             catch (Exception ex)
             {
@@ -83,33 +86,34 @@ namespace SPmvccrudoperations.Controllers
             }
 
 
-            return RedirectToAction("index");
+            return RedirectToAction("Index");
         }
         public ActionResult Details(int id)
         {
-            Employee data = new Employee();
+            EmployeeViewModel employeeViewModel = new EmployeeViewModel();
             try
             {
-                data = hs.GetEmployee(id);
+
+                employeeViewModel =  _homeService.GetEmployee(id);
             }
             catch (Exception ex)
             {
 
             }
-            return View(data);
+            return View(employeeViewModel);
         }
         public ActionResult Delete(int id)
         {
             try
             {
-                hs.DeleteEmployee(id);
+                _homeService.DeleteEmployee(id);
             }
             catch (Exception ex)
             {
 
             }
-            ViewBag.Messsage = "Record Delete Successfully";
-            return RedirectToAction("index");
+            ViewBag.Messsage = "Employee Record Deleted Successfully";
+            return RedirectToAction("Index");
         }
 
 
