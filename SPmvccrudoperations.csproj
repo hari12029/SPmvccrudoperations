@@ -128,6 +128,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Common\CustomerrorAttribute.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Employee.cs">
       <DependentUpon>employeemodel.tt</DependentUpon>
@@ -212,10 +213,13 @@
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Employee\Delete.cshtml" />
     <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\Shared\_Header.cshtml" />
+    <Content Include="Views\Shared\_Footer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\EmloyeeViewModel\" />
+    <Folder Include="Views\Error\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

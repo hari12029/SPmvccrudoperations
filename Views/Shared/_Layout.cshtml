@@ -1,21 +1,35 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
+    <header>
+        <div style="margin-top:-20px" class="main-content; navbar-fixed-top">
+            @Html.Partial("_Header")
 
-    <div class="container body-content">
-        @RenderBody()
-
+        </div>
+    </header>
+    <div id="body">
+        <section style="margin-top:70px" class="content-wrapper main-content clear-fix">
+            @RenderBody()
+        </section>
     </div>
-
+    <footer>
+        <div style="margin-bottom:-10px" class="content-wrapper; navbar-fixed-bottom">
+            <div class="float-left">
+                @Html.Partial("_footer")
+            </div>
+        </div>
+    </footer>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+
     @RenderSection("scripts", required: false)
 </body>
-</html>
+</html>  

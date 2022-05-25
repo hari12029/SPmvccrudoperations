@@ -10,110 +10,85 @@ namespace SPmvccrudoperations.Controllers
 {
     public class EmployeeController : Controller
 
-        {
-            private readonly HomeService _homeService;
-       
+    {
+        private readonly HomeService _homeService;
+
 
         public EmployeeController()
-            {
-                _homeService = new HomeService();
-            }
+        {
+            _homeService = new HomeService();
+        }
 
         // GET: Employee
-
+        [HandleError]
         public ActionResult Index()
         {
+            //throw new Exception();
             List<EmployeeViewModel> empViewModelList = new List<EmployeeViewModel>();
-            try
-            {
+
+            
                 empViewModelList = _homeService.GetEmployeeList();
-
-                
-            }
-            catch (Exception ex)
-            {
-                return View();
-            }
-
-            return View(empViewModelList);
+                return View(empViewModelList);
+                    
         }
         [HttpGet]
         public ActionResult Create()
         {
             return View();
         }
+        [HandleError]
         [HttpPost]
         public ActionResult Create(EmployeeViewModel employeeViewModel)
         {
 
-            try
-            {
-                
-                    _homeService.CreateEmployee(employeeViewModel);
-                
-            }
-            catch (Exception ex)
-            {
-
-            }
+            _homeService.CreateEmployee(employeeViewModel);
             return Json(new { Message = "employee Inserted Successfully" }, JsonRequestBehavior.AllowGet);
 
         }
+        [HandleError]
         [HttpGet]
         public ActionResult Edit(int id)
         {
             EmployeeViewModel employeeViewModel = new EmployeeViewModel();
-            try
-            {
-                employeeViewModel = _homeService.GetEmployee(id);
-            }
-            catch (Exception ex)
-            {
 
-            }
-            return View(employeeViewModel);
+           
+                employeeViewModel = _homeService.GetEmployee(id);
+                return View(employeeViewModel);
+            
         }
+        [HandleError]
         [HttpPost]
         public ActionResult Edit(EmployeeViewModel employeeViewModel)
         {
-            try
-            {
+            
                 _homeService.UpdateEmployee(employeeViewModel);
-            }
-            catch (Exception ex)
-            {
+                return RedirectToAction("Index");
 
-            }
-
-
-            return RedirectToAction("Index");
         }
+        [HandleError]
         public ActionResult Details(int id)
         {
             EmployeeViewModel employeeViewModel = new EmployeeViewModel();
-            try
-            {
+            
+            
 
                 employeeViewModel =  _homeService.GetEmployee(id);
-            }
-            catch (Exception ex)
-            {
+                return View(employeeViewModel);
 
-            }
-            return View(employeeViewModel);
+            
+     
         }
+        [HandleError]
         public ActionResult Delete(int id)
         {
-            try
-            {
+            
+            
                 _homeService.DeleteEmployee(id);
-            }
-            catch (Exception ex)
-            {
+                ViewBag.Messsage = "Employee Record Deleted Successfully";
+                return RedirectToAction("Index");
 
-            }
-            ViewBag.Messsage = "Employee Record Deleted Successfully";
-            return RedirectToAction("Index");
+            
+            
         }
 
 
