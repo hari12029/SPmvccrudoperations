@@ -27,9 +27,19 @@
             </div>
         </div>
     </footer>
+
+
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
 
+    <script>
+        //$.ajaxSetup({
+        //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+        //        alert('oops, something bad happened');
+        //        location.replace("/Employee/Error");
+        //    }
+        //});
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>  

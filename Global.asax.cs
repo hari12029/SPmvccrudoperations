@@ -17,5 +17,15 @@ namespace SPmvccrudoperations
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        //protected void Application_Error()
+        //{
+        //    var exception = Server.GetLastError();
+        //    if (exception is HttpException)
+        //    {
+        //        var httpException = (HttpException)exception;
+        //        Response.StatusCode = httpException.GetHttpCode();
+        //    }
+        //}
     }
 }

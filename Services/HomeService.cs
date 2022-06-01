@@ -64,7 +64,8 @@ namespace SPmvccrudoperations.Services
 
         public void UpdateEmployee(EmployeeViewModel employeeViewModel)
         {
-            Employee employee = new Employee();
+
+            Employee employee = _iemployeeRepository.GetById(employeeViewModel.Employeeid);
             employee.Employeeid = employeeViewModel.Employeeid;
             employee.EmployeeName = employeeViewModel.EmployeeName;
             employee.EmployeeSalary = employeeViewModel.EmployeeSalary;

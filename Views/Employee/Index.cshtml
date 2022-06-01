@@ -3,35 +3,35 @@
     ViewBag.Title = "EmployeeList page";
 }
 
-    <p>
-        <a href="/Employee/Create">Create New</a>
-    </p>
+<p>
+    <a href="/Employee/Create">Create New</a>
+</p>
 
-    <table class="table table-bordered table-hover">
-        <thead>
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Salary</th>
+            <th>City</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
             <tr>
-                <th>Name</th>
-                <th>Salary</th>
-                <th>City</th>
-                <th></th>
+                <td>@emp.EmployeeName</td>
+                <td>@emp.EmployeeSalary</td>
+                <td>@emp.EmployeeCity</td>
+                <td>
+                    <a href="/Employee/Edit/@emp.Employeeid">Edit</a> |
+                    <a href="/Employee/Details/@emp.Employeeid">Details</a> |
+                    <a href="/Employee/Delete/@emp.Employeeid">Delete</a>
+                </td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach (var emp in Model)
-            {
-                <tr>
-                    <td>@emp.EmployeeName</td>
-                    <td>@emp.EmployeeSalary</td>
-                    <td>@emp.EmployeeCity</td>
-                    <td>
-                        <a href="/Employee/Edit/@emp.Employeeid">Edit</a> |
-                        <a href="/Employee/Details/@emp.Employeeid">Details</a> |
-                        <a href="/Employee/Delete/@emp.Employeeid">Delete</a>
-                    </td>
-                </tr>
-            }
+        }
 
-        </tbody>
-    </table>
+    </tbody>
+</table>
 
 
